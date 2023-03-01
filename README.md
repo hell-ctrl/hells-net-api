@@ -20,5 +20,6 @@ Estou criando uma mini rede social para fins educacionais:)
 - [ ] Sistema de salvamento de posts.
 - [ ] Sistema para seguir e deixar de seguir perfis.
 - [ ] Sistema de pesquisa de usuários e posts por texto.
+- [ ] Rota para atualização do token de acesso.
 
 
