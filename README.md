@@ -22,7 +22,3 @@ Estou criando uma mini rede social para fins educacionais:)
 - [ ] Sistema de pesquisa de usuários e posts por texto.
 
 
-# Licença
-- MIT
-
-
