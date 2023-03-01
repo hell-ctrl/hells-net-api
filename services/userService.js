@@ -3,13 +3,13 @@ const user = require("../models/User.js");
 const createUserService = (body) => user.create(body);
 
 
-const findUserByNameService = (name) => user.findOne({ username: name });
+const findUserByNameService = (name) => user.findOne({ username: { $eq: name } });
 
 
 const findByTextService = (text) =>
   user.find({
     username: { $regex: new RegExp(text, "i") },
-  });
+  }).sort({ _id: -1 });
 
 
 const findAllUsersService = (perPage, page) => user.find().sort({ _id: -1 }).skip(page - 1).limit(perPage).select("-posts");

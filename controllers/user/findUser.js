@@ -1,18 +1,22 @@
-const { findUserByNameService, findAllUsersService } = require("../../services/userService.js");
 const { findPostsByUser } = require("../../services/postService.js");
+const {
+  findUserByNameService,
+  findAllUsersService,
+  findByTextService,
+} = require("../../services/userService.js");
 
 const findAllUsers = async (req, res) => {
-  let { per_page, page} = req.query;
+  let { per_page, page } = req.query;
 
-  per_page? "" : per_page = 20;
-  page? "" : page = 1;
+  per_page ? "" : (per_page = 20);
+  page ? "" : (page = 1);
 
   try {
     const users = await findAllUsersService(per_page, page);
     res.status(200).json({
       page,
       per_page,
-      result: users
+      result: users,
     });
   } catch {
     res.status(500).json({ erro: "ocorreu um erro" });
@@ -33,19 +37,34 @@ const findUser = async (req, res) => {
       background: userFromDB.background,
       followers: userFromDB.followers,
       following: userFromDB.following,
-      posts: userFromDB.posts.map(post => ({
+      posts: userFromDB.posts.map((post) => ({
         id: post._id,
         image: post.content.image,
         text: post.content.text,
         likes: post.likes,
         deslikes: post.deslikes,
-        createAt: post.createAt
-      }))
+        createAt: post.createAt,
+      })),
     });
   } catch {
     return res.status(404).json({ erro: "usuário não encontrado" });
-  };
+  }
 };
 
+const findUsersByText = async (req, res) => {
+  const { query } = req.query;
 
-module.exports = { findUser, findAllUsers };
+  try {
+    const result = await findByTextService(query);
+
+    if (result.length == 0 || query.length == 0) {
+      return res.status(404).json({ message: "nenhum usuário foi encontrado" });
+    }
+
+    res.status(200).json(result);
+  } catch {
+    res.status(500).json({ message: "ocorreu um erro" });
+  }
+};
+
+module.exports = { findUser, findAllUsers, findUsersByText };

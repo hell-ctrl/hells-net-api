@@ -31,7 +31,7 @@ const findPostByIdService = async (id) => {
 const findByTextService = (text) =>
   post.find({
     "content.text": { $regex: new RegExp(text, "i") },
-  });
+  }).sort({ _id: -1 }).populate("user");
 
 
 const findPostsByUser = (userId) =>
