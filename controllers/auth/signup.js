@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../../models/User.js");
-const generateToken = require("./generateToken.js");
+const { generateToken } = require("./generateToken.js");
 const { createUserService } = require("../../services/userService.js");
 const { notExistsOrError, equalOrError, existsOrError, validOrError } = require("../validation.js");
 
@@ -45,7 +45,7 @@ const signup = async (req, res) => {
     res.status(200).json({
       message: "usuário cadastrado com sucesso",
       token: tokens.token,
-      refresh_token: tokens.refreshToken,
+      refresh_token: tokens.refresh_token,
     });
   }).catch(() => res.status(500).json({message: "ocorreu um erro ao cadastrar um novo usuário"}));
 };

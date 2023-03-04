@@ -3,9 +3,9 @@ const User = require("../../models/User.js");
 const { updateUserService } = require("../../services/userService.js");
 
 const updateUser = async (req, res) => {
-  var { username, avatar, password, new_password } = req.body;
+  var { username, avatar, password, new_password, biography } = req.body;
 
-  if (!username && !avatar && !new_password) {
+  if (!username && !avatar && !new_password && !biography) {
     return res.status(400).json({ message: "envie pelo menos um campo" });
   };
 
@@ -21,12 +21,13 @@ const updateUser = async (req, res) => {
     };
     if (username) {
       const userFromDB = await User.findOne({ username: { $eq: username } });
-      if(userFromDB) return res.status(400).json({message: "esse usuário já existe"}) 
+      if(userFromDB) return res.status(400).json({message: "esse usuário já existe"});
     };
 
     const body = {
       username,
       avatar,
+      biography,
       password,
     };
 

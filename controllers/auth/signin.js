@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../../models/User.js");
-const generateToken = require("./generateToken.js");
+const { generateToken } = require("./generateToken.js");
 const { existsOrError } = require("../validation.js");
 
 const signin = async (req, res) => {
@@ -30,7 +30,7 @@ const signin = async (req, res) => {
   res.status(200).json({
     message: "login feito com sucesso",
     token: tokens.token,
-    refresh_token: tokens.refreshToken,
+    refresh_token: tokens.refresh_token,
   });
 };
 
