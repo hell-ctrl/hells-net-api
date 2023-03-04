@@ -19,7 +19,7 @@ Estou criando uma mini rede social para fins educacionais:)
 - [x] Sistema de criação, edição e exclusão comentários.
 - [ ] Sistema de salvamento de posts.
 - [ ] Sistema para seguir e deixar de seguir perfis.
-- [ ] Sistema de pesquisa de usuários e posts por texto.
+- [x] Sistema de pesquisa de usuários e posts por texto.
 - [ ] Rota para atualização do token de acesso.
 
 
