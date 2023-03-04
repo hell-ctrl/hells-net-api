@@ -13,13 +13,13 @@ const likePost = async (req, res) => {
 
     if (!postLiked) {
       await deleteLikeService(id, req.user.id);
-      return res.status(200).json({ success: "like removido com sucesso" });
+      return res.status(200).json({ message: "like removido com sucesso" });
     }
 
     await deleteDeslikeService(id, req.user.id);
-    res.status(200).json({ success: "like adicionado com sucesso" });
+    res.status(200).json({ message: "like adicionado com sucesso" });
   } catch {
-    res.status(500).json({ erro: "ocorreu um erro" });
+    res.status(500).json({ message: "ocorreu um erro" });
   }
 };
 
@@ -31,13 +31,13 @@ const deslikePost = async (req, res) => {
 
     if (!postDesliked) {
       await deleteDeslikeService(id, req.user.id);
-      return res.status(200).json({ success: "deslike removido com sucesso" });
+      return res.status(200).json({ message: "deslike removido com sucesso" });
     }
     
     await deleteLikeService(id, req.user.id);
-    res.status(200).json({ success: "deslike adicionado com sucesso" });
+    res.status(200).json({ message: "deslike adicionado com sucesso" });
   } catch {
-    res.status(500).json({ erro: "ocorreu um erro" });
+    res.status(500).json({ message: "ocorreu um erro" });
   }
 };
 

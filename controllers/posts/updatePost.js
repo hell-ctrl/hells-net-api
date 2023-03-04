@@ -8,7 +8,7 @@ const updatePost = async (req, res) => {
   const { image, text } = req.body;
 
   if (!image && !text) {
-    return res.status(400).json({ erro: "envie pelo menos um campo" });
+    return res.status(400).json({ message: "envie pelo menos um campo" });
   }
 
   try {
@@ -22,11 +22,11 @@ const updatePost = async (req, res) => {
           text,
         },
       });
-      return res.status(200).json({ success: "post atualizado com sucesso" });
+      return res.status(200).json({ message: "post atualizado com sucesso" });
     }
-    res.status(400).json({ erro: "você não pode atualizar esse post" });
+    res.status(400).json({ message: "você não pode atualizar esse post" });
   } catch {
-    res.status(404).json({ erro: "esse post não existe" });
+    res.status(404).json({ message: "esse post não existe" });
   }
 };
 

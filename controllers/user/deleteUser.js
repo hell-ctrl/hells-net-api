@@ -26,9 +26,9 @@ const deleteUser = async (req, res) => {
       await deleteAllCommentsByUserService(userId);
       res.status(200).json({ sucess: "usuário excluído" });
     }
-    res.status(400).json({ erro: "senha inválida" });
+    res.status(400).json({ message: "senha inválida" });
   } catch {
-    return res.status(500).json({ erro: "ocorreu um erro ao deletar usuário" });
+    return res.status(500).json({ message: "ocorreu um erro ao deletar usuário" });
   }
 };
 

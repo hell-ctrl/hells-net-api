@@ -4,7 +4,7 @@ const createPost = async (req, res) => {
   const { text, image } = req.body;
 
   if (!text && !image) {
-    return res.status(400).json({ erro: "envie algum texto ou imagem" });
+    return res.status(400).json({ message: "envie algum texto ou imagem" });
   }
 
   try {
@@ -21,7 +21,7 @@ const createPost = async (req, res) => {
 
     res.status(200).json({ sucess: "post criado com sucesso" });
   } catch {
-    return res.status(500).json({ erro: "ocorreu um erro ao criar o post"});
+    return res.status(500).json({ message: "ocorreu um erro ao criar o post"});
   }
 };
 

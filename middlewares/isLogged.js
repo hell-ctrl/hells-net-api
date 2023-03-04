@@ -9,7 +9,7 @@ const isLogged = (req, res, next) => {
     req.user = user;
     next();
   } catch {
-    res.status(401).json({ erro: "não autorizado" });
+    res.status(401).json({ message: "não autorizado" });
   }
 };
 

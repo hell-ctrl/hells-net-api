@@ -27,7 +27,7 @@ const signup = async (req, res) => {
     });
     notExistsOrError(userFromDB, "nickname e/ou email já cadastrados");
   } catch (err) {
-    return res.status(400).json({error: err});
+    return res.status(400).json({message: err});
   }
 
   password = encryptPswd(password);
@@ -43,11 +43,11 @@ const signup = async (req, res) => {
   }).then((data) => {
     let tokens = generateToken({ id: data._id, adm });
     res.status(200).json({
-      sucess: "usuário cadastrado com sucesso",
+      message: "usuário cadastrado com sucesso",
       token: tokens.token,
       refresh_token: tokens.refreshToken,
     });
-  }).catch(() => res.status(500).json({error: "ocorreu um erro ao cadastrar um novo usuário"}));
+  }).catch(() => res.status(500).json({message: "ocorreu um erro ao cadastrar um novo usuário"}));
 };
 
 

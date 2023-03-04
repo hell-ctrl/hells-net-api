@@ -5,24 +5,23 @@ const createComment = async (req, res) => {
   const { comment } = req.body;
   const { id } = req.params;
   if (!comment) {
-    return res.status(400).json({ erro: "envie o comentário" });
+    return res.status(400).json({ message: "envie o comentário" });
   }
   if (!id) {
-    return res.status(400).json({ erro: "em qual post você quer comentar?" });
+    return res.status(400).json({ message: "em qual post você quer comentar?" });
   }
   try {
     const postFromDB = await Post.findById(id);
-    if(!postFromDB) return res.status(404).json({erro: "este post não existe"})
+    if(!postFromDB) return res.status(404).json({message: "este post não existe"})
 
     await createCommentService({
       user: req.user.id,
       postId: id,
       comment,
     });
-    res.status(200).json({ success: "comentário criado" });
-  } catch(e) {
-    res.status(500).json({ erro: "ocorreu um erro ao comentar"});
-    console.log(e)
+    res.status(200).json({ message: "comentário criado" });
+  } catch {
+    res.status(500).json({ message: "ocorreu um erro ao comentar"});
   }
 };
 

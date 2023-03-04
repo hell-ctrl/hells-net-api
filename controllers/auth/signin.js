@@ -17,18 +17,18 @@ const signin = async (req, res) => {
 
     existsOrError(userFromDB, "usuário e/ou senha incorretos");
   } catch (err) {
-    return res.status(400).json({ erro: err });
+    return res.status(400).json({ message: err });
   }
 
   const isMatch = bcrypt.compareSync(password, userFromDB.password);
   if (!isMatch) {
-    return res.status(401).json({ erro: "usuário e/ou senha inválidos" });
+    return res.status(401).json({ message: "usuário e/ou senha inválidos" });
   }
 
   const tokens = generateToken({ id: userFromDB._id, adm: userFromDB.adm });
 
   res.status(200).json({
-    success: "login feito com sucesso",
+    message: "login feito com sucesso",
     token: tokens.token,
     refresh_token: tokens.refreshToken,
   });

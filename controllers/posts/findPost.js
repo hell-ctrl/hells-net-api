@@ -10,7 +10,7 @@ const findAllPosts = async (req, res) => {
     const posts = await findAllPostsService(page, per_page);
 
     if (posts.length == 0) {
-      return res.status(400).json({ erro: "nenhum post foi criado" });
+      return res.status(400).json({ message: "nenhum post foi criado" });
     }
 
     res.status(200).json({
@@ -29,7 +29,7 @@ const findAllPosts = async (req, res) => {
       }))
     });
   } catch {
-    res.status(500).json({ erro: "ocorreu um erro" });
+    res.status(500).json({ message: "ocorreu um erro" });
   }
 };
 
@@ -59,7 +59,7 @@ const findPost = async (req, res) => {
       avatar: postFromDB.user.avatar
     });
   } catch {
-    return res.status(404).json({ erro: "post não encontrado"});
+    return res.status(404).json({ message: "post não encontrado"});
   }
 };
 

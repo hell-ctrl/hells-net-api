@@ -19,7 +19,7 @@ const findAllUsers = async (req, res) => {
       result: users,
     });
   } catch {
-    res.status(500).json({ erro: "ocorreu um erro" });
+    res.status(500).json({ message: "ocorreu um erro" });
   }
 };
 
@@ -47,7 +47,7 @@ const findUser = async (req, res) => {
       })),
     });
   } catch {
-    return res.status(404).json({ erro: "usuário não encontrado" });
+    return res.status(404).json({ message: "usuário não encontrado" });
   }
 };
 

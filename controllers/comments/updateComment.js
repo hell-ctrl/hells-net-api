@@ -6,7 +6,7 @@ const updatePost = async (req, res) => {
   const { comment } = req.body;
 
   if (!id || !comment) {
-    return res.status(400).json({ erro: "envie todos os parâmetros" });
+    return res.status(400).json({ message: "envie todos os parâmetros" });
   }
 
   try {
@@ -15,13 +15,13 @@ const updatePost = async (req, res) => {
       await update(id, {
         comment,
       });
-      return res.status(200).json({ success: "comentário atualizado" });
+      return res.status(200).json({ message: "comentário atualizado" });
     }
     return res.status(400).json({
-      erro: "você não pode atualizar esse comentário porquê ele não é seu",
+      message: "você não pode atualizar esse comentário porquê ele não é seu",
     });
   } catch {
-    res.status(500).json({ erro: "ocorreu um erro" });
+    res.status(500).json({ message: "ocorreu um erro" });
   };
 };
 
