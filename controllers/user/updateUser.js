@@ -20,7 +20,7 @@ const updateUser = async (req, res) => {
       password = bcrypt.hashSync(new_password, salt);
     };
     if (username) {
-      const userFromDB = await User.findOne({ username: username });
+      const userFromDB = await User.findOne({ username:  username });
       if(userFromDB) return res.status(400).json({message: "esse usuário já existe"}) 
     };
 
