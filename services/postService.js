@@ -1,7 +1,9 @@
 const post = require("../models/Post.js");
 const comment = require("../models/Comment.js");
+const savedPost = require("../models/savedPost.js");
 
 
+//sessão de criação, edição, exclusão e localização de posts
 const createPostService = (body) => post.create(body);
 
 
@@ -29,9 +31,12 @@ const findPostByIdService = async (id) => {
 
 
 const findByTextService = (text) =>
-  post.find({
-    "content.text": { $regex: new RegExp(text, "i") },
-  }).sort({ _id: -1 }).populate("user");
+  post
+    .find({
+      "content.text": { $regex: new RegExp(text, "i") },
+    })
+    .sort({ _id: -1 })
+    .populate("user");
 
 
 const findPostsByUser = (userId) =>
@@ -45,6 +50,32 @@ const updatePostService = (postId, body) =>
 const deletePostService = (postId) => post.findByIdAndDelete(postId);
 
 
+const deleteAllPostsByUserService = (userId) =>
+  post.deleteMany({ user: userId });
+
+
+//sessão de criação e exclusão de posts salvos
+const savePostService = async (postId, userId) => {
+  const postSaved = await savedPost.findOne({ post: postId, user: userId });
+  if (!postSaved) {
+    return await savedPost.create({ user: userId, post: postId });
+  }
+};
+
+
+const findSavedPostsService = (userId) =>
+  savedPost.find({ user: userId }).populate("post").populate("user");
+
+
+const deleteSavedPostService = (postId, userId) =>
+  savedPost.findOneAndDelete({ post: postId, user: userId });
+
+
+const deleteAllSavedPostsByUserService = (userId) => 
+  savedPost.deleteMany({ user: userId })
+
+
+//sessão de like e deslike de posts
 const likeService = (postId, userId) =>
   post.findOneAndUpdate(
     {
@@ -52,8 +83,8 @@ const likeService = (postId, userId) =>
       "likes.userId": { $nin: [userId] },
     },
     { $push: { likes: { userId, createAt: new Date() } } }
-    );
-    
+  );
+
 
 const deleteLikeService = (postId, userId) =>
   post.findOneAndUpdate({ _id: postId }, { $pull: { likes: { userId } } });
@@ -73,8 +104,6 @@ const deleteDeslikeService = (postId, userId) =>
   post.findOneAndUpdate({ _id: postId }, { $pull: { deslikes: { userId } } });
 
 
-const deleteAllPostsByUserService = (userId) =>
-  post.deleteMany({ user: userId });
 
 
 const deleteAllLikesByUserService = (userId) =>
@@ -82,7 +111,10 @@ const deleteAllLikesByUserService = (userId) =>
 
 
 const deleteAllDeslikesByUserService = (userId) =>
-  post.updateMany({ "deslikes.userId": userId }, { $pull: { deslikes: { userId } } });
+  post.updateMany(
+    { "deslikes.userId": userId },
+    { $pull: { deslikes: { userId } } }
+  );
 
 
 module.exports = {
@@ -93,11 +125,15 @@ module.exports = {
   findPostByIdService,
   findByTextService,
   findPostsByUser,
+  deleteAllPostsByUserService,
+  savePostService,
+  findSavedPostsService,
+  deleteSavedPostService,
+  deleteAllSavedPostsByUserService,
   likeService,
   deleteLikeService,
   deslikeService,
   deleteDeslikeService,
-  deleteAllPostsByUserService,
   deleteAllLikesByUserService,
-  deleteAllDeslikesByUserService
+  deleteAllDeslikesByUserService,
 };

@@ -1,14 +1,13 @@
-const bcrypt = require("bcrypt");
-const User = require("../../models/User.js");
-const { deleteUserService } = require("../../services/userService.js");
 const {
   deleteAllPostsByUserService,
   deleteAllLikesByUserService,
   deleteAllDeslikesByUserService,
+  deleteAllSavedPostsByUserService,
 } = require("../../services/postService.js");
-const {
-  deleteAllCommentsByUserService,
-} = require("../../services/commentService.js");
+const bcrypt = require("bcrypt");
+const User = require("../../models/User.js");
+const { deleteUserService } = require("../../services/userService.js");
+const { deleteAllCommentsByUserService } = require("../../services/commentService.js");
 
 const deleteUser = async (req, res) => {
   const { password } = req.body;
@@ -24,6 +23,7 @@ const deleteUser = async (req, res) => {
       await deleteAllDeslikesByUserService(userId);
       await deleteAllLikesByUserService(userId);
       await deleteAllCommentsByUserService(userId);
+      await deleteAllSavedPostsByUserService(userId);
       res.status(200).json({ sucess: "usuário excluído" });
     }
     res.status(400).json({ message: "senha inválida" });
