@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "hells-net-api",
   "version": "1.0.0",
   "description": "backend do forum",
   "main": "index.js",

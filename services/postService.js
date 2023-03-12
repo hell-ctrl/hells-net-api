@@ -1,6 +1,6 @@
 const post = require("../models/Post.js");
 const comment = require("../models/Comment.js");
-const savedPost = require("../models/savedPost.js");
+const savedPost = require("../models/SavedPost.js");
 
 
 //sessão de criação, edição, exclusão e localização de posts

@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
-const User = require("../../models/User.js");
 const { generateToken } = require("./generateToken.js");
 const { existsOrError } = require("../validation.js");
+const { signinService } = require("../../services/userService.js");
 
 const signin = async (req, res) => {
   const { user, password } = req.body;
@@ -11,9 +11,8 @@ const signin = async (req, res) => {
       throw "preencha todos os campos";
     }
 
-    var userFromDB = await User.findOne({
-      $or: [{ email: user }, { username: user }],
-    }).select("+password");
+    var userFromDB = await signinService(user);
+
 
     existsOrError(userFromDB, "usuário e/ou senha incorretos");
   } catch (err) {

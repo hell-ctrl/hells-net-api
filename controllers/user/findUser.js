@@ -35,8 +35,16 @@ const findUser = async (req, res) => {
       user: userFromDB.username,
       avatar: userFromDB.avatar,
       background: userFromDB.background,
-      followers: userFromDB.followers,
-      following: userFromDB.following,
+      followers: userFromDB.followers.map((user) =>({
+        id: user.user._id,
+        user: user.user.username,
+        avatar: user.user.avatar
+      })),
+      following: userFromDB.following.map((user) =>({
+        id: user.following._id,
+        user: user.following.username,
+        avatar: user.following.avatar
+      })),
       posts: userFromDB.posts.map((post) => ({
         id: post._id,
         image: post.content.image,
