@@ -1,4 +1,4 @@
-# Minha rede social - api (ainda não tem nome) 🌱
+# hells-net-api 🌱
 
 Estou criando uma mini rede social para fins educacionais:)
 
