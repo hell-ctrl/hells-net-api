@@ -32,7 +32,7 @@ const unFollowUser = async (req, res) => {
     await unFollowUserService(userId, following);
     res
       .status(200)
-      .json({ message: "você deixou de seguir esse usuário com sucessoo" });
+      .json({ message: "você deixou de seguir esse usuário com sucesso" });
   } catch {
     res.status(500).json({ message: "ocorreu um erro" });
   }
